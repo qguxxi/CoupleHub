@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.synth.couplehub"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.synth.couplehub"
