@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CoupleHub</string>
+    <string name="privacy">By using the app, you accept our Terms of Service\nand acknowledge reading the Privacy Policy</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_services">Terms of Service</string>
+    <string name="google">Đăng nhập với Google</string>
+    <string name="app_detail">Ứng dụng tốt nhất dành cho cặp đôi</string>
 </resources>
