@@ -49,7 +49,7 @@ fun SignInScreen(navController : NavController) {
                 state = state,
                 clientId = clientKeyApi,
                 onTokenIdReceived = { tokenId ->
-                    navController.navigate(Screen.Intro.route)
+                    navController.navigate(Screen.Intro1.route)
                     Log.d("GOOGLE SIGN IN", tokenId)
                 },
                 onDialogDismissed = { message ->

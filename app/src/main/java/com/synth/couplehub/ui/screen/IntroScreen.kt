@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -20,22 +21,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.synth.couplehub.ui.navigation.Screen
+import com.synth.couplehub.R
+import com.synth.couplehub.ui.component.ContinueButton
 import com.synth.couplehub.ui.theme.AppTypography
-import com.synth.couplehub.ui.viewmodel.UserViewModel
+import com.synth.couplehub.ui.viewmodel.SharedViewModel
 
 
 @Composable
-fun IntroScreen(navController : NavController,userViewModel: UserViewModel = viewModel(), modifier : Modifier = Modifier) {
-    var inputUser by remember { mutableStateOf("") }
+fun IntroScreen(sharedViewModel : SharedViewModel,navController : NavController, modifier : Modifier = Modifier) {
+    var nameInput by remember { mutableStateOf("") }
+    val keyboardController = LocalSoftwareKeyboardController.current
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -55,10 +59,12 @@ fun IntroScreen(navController : NavController,userViewModel: UserViewModel = vie
             )
     ){
         Spacer(modifier = Modifier.weight(1f))
-        Text(text = "Tên của bạn là gì", style = AppTypography.bodyLarge.copy(fontSize = 36.sp, fontWeight = FontWeight.Bold))
+        Text(text = stringResource(id = R.string.input_name), style = AppTypography.bodyLarge.copy(fontSize = 32.sp, fontWeight = FontWeight.Bold))
         Spacer(modifier = Modifier.height(16.dp))
-        Box {
-            if (inputUser.isEmpty()) {
+        Box(
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            if (nameInput.isEmpty()) {
                 Text(
                     text = "Nhập tên của bạn",
                     fontSize = 24.sp,
@@ -66,33 +72,31 @@ fun IntroScreen(navController : NavController,userViewModel: UserViewModel = vie
                 )
             }
             BasicTextField(
-                value = inputUser ,
+                value = nameInput ,
                 keyboardActions = KeyboardActions(
                     onDone = {
-                        userViewModel.updateUserName(inputUser)
-                        navController.navigate(Screen.Home.route)
+                        sharedViewModel.setName(nameInput)
+                        keyboardController?.hide()
+
                     }
-                ) ,
-                textStyle = TextStyle(
-                    fontSize = 24.sp // Đặt kích thước font tại đây
-                ) ,
+                ),
+                textStyle = TextStyle(fontSize = 24.sp),
                 maxLines = 1 ,
                 singleLine = true ,
                 onValueChange = { newInput ->
-                    inputUser = newInput
-                }
+                    nameInput = newInput
+                },
+                modifier = Modifier.fillMaxWidth(0.5f)
             )
         }
         Spacer(modifier = Modifier.weight(4f))
+        ContinueButton()
+        Spacer(modifier = Modifier.weight(1f))
     }
 }
-
-
-
-
 
 @Preview
 @Composable
 private fun IntroScreenPreview() {
-    IntroScreen(userViewModel = UserViewModel(), navController = rememberNavController())
+    IntroScreen(sharedViewModel = SharedViewModel() , navController = rememberNavController())
 }

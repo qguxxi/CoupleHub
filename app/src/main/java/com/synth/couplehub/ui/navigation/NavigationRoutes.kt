@@ -9,26 +9,25 @@ import androidx.navigation.compose.rememberNavController
 import com.synth.couplehub.ui.screen.IntroScreen
 import com.synth.couplehub.ui.screen.home.HomeScreen
 import com.synth.couplehub.ui.screen.SignInScreen
-import com.synth.couplehub.ui.viewmodel.UserViewModel
+import com.synth.couplehub.ui.viewmodel.SharedViewModel
 
 sealed class Screen(val route: String) {
     data object Home : Screen("home")
     data object SignIn : Screen("sign_In")
-    data object Intro : Screen("intro")
+    data object Intro1 : Screen("intro")
 }
 @Composable
-fun CoupleHubNavHost() {
+fun CoupleHubNavHost(sharedViewModel : SharedViewModel = viewModel()) {
     val navController = rememberNavController()
-    val userViewModel: UserViewModel = viewModel()
     NavHost(navController = navController, startDestination = Screen.SignIn.route) {
         composable(Screen.Home.route) {
-            HomeScreen(userViewModel)
+            HomeScreen(sharedViewModel = sharedViewModel)
         }
         composable(Screen.SignIn.route) {
             SignInScreen(navController)
         }
-        composable(Screen.Intro.route) {
-            IntroScreen(navController)
+        composable(Screen.Intro1.route) {
+            IntroScreen(sharedViewModel,navController)
         }
     }
 }
