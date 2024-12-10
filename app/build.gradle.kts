@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -13,11 +15,18 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        val clientKeyApi = project.rootProject.file("local.properties")
+            .readLines()
+            .first { it.startsWith("CLIENT_KEY_API") }
+            .split("=")[1]
+
+        buildConfigField("String", "CLIENT_KEY_API", "\"$clientKeyApi\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
+
     }
 
     buildTypes {
@@ -44,11 +53,23 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
 // Splash Screen
     implementation ("androidx.appcompat:appcompat:1.6.1")
+
+    implementation("com.github.stevdza-san:OneTapCompose:1.0.14")
+
+//    Data Store
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+//    ViewModel
+    val lifecycle_version = "2.8.7"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+
 
 //    Navigation
     implementation("androidx.navigation:navigation-compose:2.8.4")
