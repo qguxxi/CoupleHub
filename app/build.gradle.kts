@@ -50,6 +50,9 @@ dependencies {
 // Splash Screen
     implementation ("androidx.appcompat:appcompat:1.6.1")
 
+//    Navigation
+    implementation("androidx.navigation:navigation-compose:2.8.4")
+
     implementation("androidx.core:core-splashscreen:1.0.0-beta02")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
