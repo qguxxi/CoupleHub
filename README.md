@@ -1,5 +1,4 @@
 # Couple Hub - Android Application
-# Android Project Template
 
 ## 🚀 Project Overview
 
@@ -40,6 +39,13 @@ A modern Android application built with Kotlin and Jetpack Compose, demonstratin
 ## 📋 Code Style
 - [Kotlin Coding Conventions](https://kotlinlang.org/docs/coding-conventions.html)
 - Use ktlint for code formatting
+
+## License
+
+This is an open-source project licensed under the MIT License with the following conditions:
+
+- The software may not be published on the Google Play Store or used for commercial purposes without explicit permission from the author.
+- For more details about the license, please refer to the LICENSE file.
 
 ## 🔒 Security
 
