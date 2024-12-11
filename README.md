@@ -1,5 +1,4 @@
 # Couple Hub - Android Application
-# Android Project Template
 
 ## 🚀 Project Overview
 

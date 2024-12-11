@@ -1,13 +1,11 @@
 package com.synth.couplehub.ui.component
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.CircularProgressIndicator
@@ -26,13 +24,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.synth.couplehub.R
 import com.synth.couplehub.ui.theme.AppTypography
+import com.synth.couplehub.ui.theme.largeRoundedCornerShape
 
 @Composable
 fun GoogleSignInButton(onClick : () -> Unit ,isLoading:Boolean,modifier : Modifier = Modifier) {
     val scheme = MaterialTheme.colorScheme
     Button(
         onClick = onClick,
-        shape = RoundedCornerShape(30.dp) ,
+        shape = largeRoundedCornerShape ,
         colors = ButtonColors(scheme.primaryContainer,scheme.onPrimaryContainer,scheme.primaryContainer,scheme.primaryContainer) ,
         modifier = Modifier
             .height(54.dp)
@@ -56,10 +55,10 @@ fun GoogleSignInButton(onClick : () -> Unit ,isLoading:Boolean,modifier : Modifi
                     strokeWidth = 2.dp,
                 )
             }
-            Spacer(modifier = Modifier.width(30.dp))
+            Spacer(modifier = Modifier.width(20.dp))
             Text(
                 text = stringResource(id = R.string.google) ,
-                style = AppTypography.labelSmall.copy(fontSize = 12.sp) ,
+                style = AppTypography.labelSmall.copy(fontSize = 14.sp) ,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
             )
             Spacer(modifier = Modifier.weight(1f))

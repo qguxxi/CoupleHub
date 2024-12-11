@@ -7,5 +7,5 @@ import com.synth.couplehub.ui.navigation.CoupleHubNavHost
 
 @Composable
 fun CoupleHubApp() {
-    CoupleHubNavHost(navController = rememberNavController())
+    CoupleHubNavHost()
 }
