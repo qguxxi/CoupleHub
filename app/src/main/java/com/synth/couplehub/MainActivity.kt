@@ -9,6 +9,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import com.synth.couplehub.ui.theme.AppTheme
 import com.synth.couplehub.ui.CoupleHubApp
+import com.synth.couplehub.ui.screen.DateScreen
 import com.synth.couplehub.ui.screen.IntroScreen
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +20,7 @@ class MainActivity : ComponentActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContent {
             AppTheme {
-                CoupleHubApp()
+               CoupleHubApp()
             }
         }
     }

@@ -62,10 +62,13 @@ dependencies {
 // Splash Screen
     implementation ("androidx.appcompat:appcompat:1.6.1")
 
+
     implementation("com.github.stevdza-san:OneTapCompose:1.0.14")
 
 //    Data Store
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation(libs.material)
+    implementation(libs.firebase.vertexai)
 //    ViewModel
     val lifecycle_version = "2.8.7"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")

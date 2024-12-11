@@ -1,4 +1,4 @@
-package com.synth.couplehub.ui.screen.home
+package com.synth.couplehub.ui.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,14 +9,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.synth.couplehub.ui.component.BottomAppBar
-import com.synth.couplehub.ui.viewmodel.SharedViewModel
 
 @Composable
-fun HomeScreen(navController : NavController,modifier : Modifier = Modifier) {
+fun ProfileScreen(navController : NavController , modifier : Modifier = Modifier) {
     Scaffold {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -29,9 +26,3 @@ fun HomeScreen(navController : NavController,modifier : Modifier = Modifier) {
         }
     }
 }
-@Preview(showBackground = true)
-@Composable
-private fun HomeScreenPreview() {
-    HomeScreen(navController = rememberNavController())
-}
-

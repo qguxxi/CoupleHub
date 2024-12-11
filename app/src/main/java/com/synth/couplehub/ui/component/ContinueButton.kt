@@ -18,15 +18,16 @@ import com.synth.couplehub.R
 import com.synth.couplehub.ui.theme.mediumRoundedCornerShape
 
 @Composable
-fun ContinueButton(modifier : Modifier = Modifier) {
+fun ContinueButton(enable: Boolean,onClick:() -> Unit,modifier : Modifier = Modifier) {
     Button(
-        onClick = { /*TODO*/ },
+        enabled = enable,
+        onClick = onClick,
         shape = mediumRoundedCornerShape,
         colors = ButtonColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer,
-            contentColor = MaterialTheme.colorScheme.onSurface,
-            disabledContainerColor = MaterialTheme.colorScheme.errorContainer,
-            disabledContentColor = MaterialTheme.colorScheme.onErrorContainer
+            containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
+            disabledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+            disabledContentColor = MaterialTheme.colorScheme.onSurface
         ) ,
         modifier = Modifier
             .height(48.dp)
@@ -44,5 +45,5 @@ fun ContinueButton(modifier : Modifier = Modifier) {
 @Preview
 @Composable
 private fun ContinueButtonPreview() {
-    ContinueButton()
+    ContinueButton(false, {})
 }

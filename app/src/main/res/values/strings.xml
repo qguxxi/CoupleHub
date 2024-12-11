@@ -6,6 +6,8 @@
     <string name="google">Đăng nhập với Google</string>
     <string name="app_detail">Ứng dụng tốt nhất dành cho cặp đôi</string>
     <string name="input_name">Tên của bạn là gì</string>
+    <string name="input_her_name">Tên của người yêu bạn</string>
     <string name="input">Nhập tên của bạn</string>
+    <string name="her_input">Nhập tên người yêu</string>
     <string name="let">Tiếp tục</string>
 </resources>

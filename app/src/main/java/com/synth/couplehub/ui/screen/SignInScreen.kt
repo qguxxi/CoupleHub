@@ -1,6 +1,5 @@
 package com.synth.couplehub.ui.screen
 
-import android.os.Build
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -20,9 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.os.BuildCompat
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.stevdzasan.onetap.OneTapSignInWithGoogle
 import com.stevdzasan.onetap.rememberOneTapSignInState
@@ -35,8 +32,7 @@ import com.synth.couplehub.ui.theme.AppTypography
 
 @Composable
 fun SignInScreen(navController : NavController) {
-    Scaffold(
-    ) {
+    Scaffold {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
@@ -49,7 +45,7 @@ fun SignInScreen(navController : NavController) {
                 state = state,
                 clientId = clientKeyApi,
                 onTokenIdReceived = { tokenId ->
-                    navController.navigate(Screen.Intro1.route)
+                    navController.navigate(Screen.Intro.route)
                     Log.d("GOOGLE SIGN IN", tokenId)
                 },
                 onDialogDismissed = { message ->
