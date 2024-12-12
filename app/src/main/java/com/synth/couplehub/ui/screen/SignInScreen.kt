@@ -1,5 +1,9 @@
+@file:Suppress("DEPRECATION")
+
 package com.synth.couplehub.ui.screen
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -19,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.stevdzasan.onetap.OneTapSignInWithGoogle
@@ -32,9 +37,10 @@ import com.synth.couplehub.ui.theme.AppTypography
 
 @Composable
 fun SignInScreen(navController : NavController) {
+
     Scaffold {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.CenterHorizontally ,
             modifier = Modifier
                 .padding(it)
                 .fillMaxSize()
@@ -42,36 +48,42 @@ fun SignInScreen(navController : NavController) {
             val clientKeyApi = BuildConfig.CLIENT_KEY_API
             val state = rememberOneTapSignInState()
             OneTapSignInWithGoogle(
-                state = state,
-                clientId = clientKeyApi,
+                state = state ,
+                clientId = clientKeyApi ,
                 onTokenIdReceived = { tokenId ->
                     navController.navigate(Screen.Intro.route)
-                    Log.d("GOOGLE SIGN IN", tokenId)
-                },
+                    Log.d("GOOGLE SIGN IN" , tokenId)
+                } ,
                 onDialogDismissed = { message ->
-                    Log.d("GOOGLE SIGN IN", message)
+                    Log.d("GOOGLE SIGN IN" , message)
                 }
             )
 
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = stringResource(id = R.string.app_name),
-                style = AppTypography.displayLarge,
-                fontWeight = FontWeight.Bold,
+                text = stringResource(id = R.string.app_name) ,
+                style = AppTypography.displayLarge ,
+                fontWeight = FontWeight.Bold ,
                 color = Color(0xFFFA2EAC)
-                )
+            )
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = stringResource(id = R.string.app_detail),
-                style = AppTypography.titleSmall,
+                text = stringResource(id = R.string.app_detail) ,
+                style = AppTypography.titleSmall ,
                 modifier = Modifier.alpha(0.5f)
-                )
+            )
             Spacer(modifier = Modifier.weight(2f))
             Image(painter = painterResource(id = R.drawable.logo_large) , contentDescription = null)
             Spacer(modifier = Modifier.height(240.dp))
             GoogleSignInButton(onClick = { state.open() } , isLoading = false)
             Spacer(modifier = Modifier.weight(3f))
-            BottomBarSignIn(privacyOnClick = { /*TODO*/ }  , termServiceOnClick = { /*TODO*/ })
+            BottomBarSignIn(privacyOnClick = {
+                val intent = Intent(Intent.ACTION_VIEW , Uri.parse("https://sites.google.com/view/synthinc/trang-ch%E1%BB%A7"))
+                startActivity(navController.context , intent , null)
+            } , termServiceOnClick = {
+                val intent = Intent(Intent.ACTION_VIEW , Uri.parse("https://sites.google.com/view/synth-inc/trang-ch%E1%BB%A7"))
+                startActivity(navController.context , intent , null)
+            })
         }
     }
 }
