@@ -6,13 +6,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -20,13 +17,15 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.synth.couplehub.R
 import com.synth.couplehub.ui.navigation.Screen
 
 @Composable
 fun BottomAppBar(navController: NavController, modifier: Modifier = Modifier) {
-    val currentDestination = remember { navController.currentDestination }
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
     val isHomeScreen = currentDestination?.route == Screen.Home.route
     val isProfileScreen = currentDestination?.route == Screen.Profile.route
     val isHeartScreen = currentDestination?.route == Screen.Heart.route
@@ -37,7 +36,6 @@ fun BottomAppBar(navController: NavController, modifier: Modifier = Modifier) {
             .height(75.dp)
             .fillMaxWidth()
             .padding(16.dp),
-        
         horizontalArrangement = Arrangement.SpaceAround
     ) {
         BottomAppBarIcon(
@@ -86,7 +84,6 @@ fun BottomAppBar(navController: NavController, modifier: Modifier = Modifier) {
         )
     }
 }
-
 @Composable
 fun BottomAppBarIcon(
     isSelected: Boolean,
