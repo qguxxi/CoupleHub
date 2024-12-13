@@ -1,5 +1,7 @@
 package com.synth.couplehub.ui
 
+import android.app.Activity
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController

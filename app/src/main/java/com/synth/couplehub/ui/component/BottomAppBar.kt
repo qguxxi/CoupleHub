@@ -29,7 +29,6 @@ fun BottomAppBar(navController: NavController, modifier: Modifier = Modifier) {
     val isHomeScreen = currentDestination?.route == Screen.Home.route
     val isProfileScreen = currentDestination?.route == Screen.Profile.route
     val isHeartScreen = currentDestination?.route == Screen.Heart.route
-
     Row(
         modifier = modifier
             .background(color = Color(0xFFFAF3F4))
@@ -52,7 +51,6 @@ fun BottomAppBar(navController: NavController, modifier: Modifier = Modifier) {
                 }
             }
         )
-
         BottomAppBarIcon(
             isSelected = isHeartScreen,
             iconRes = R.drawable.heart,
@@ -67,7 +65,6 @@ fun BottomAppBar(navController: NavController, modifier: Modifier = Modifier) {
                 }
             }
         )
-
         BottomAppBarIcon(
             isSelected = isProfileScreen,
             iconRes = R.drawable.profile,

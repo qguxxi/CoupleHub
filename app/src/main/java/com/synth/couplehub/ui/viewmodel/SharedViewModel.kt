@@ -1,8 +1,10 @@
 package com.synth.couplehub.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class SharedViewModel : ViewModel() {
     private val _nameData = MutableStateFlow("")
@@ -18,6 +20,7 @@ class SharedViewModel : ViewModel() {
     fun setHornyName(name: String) {
         _hornyName.value = name
     }
+
 
 
 }

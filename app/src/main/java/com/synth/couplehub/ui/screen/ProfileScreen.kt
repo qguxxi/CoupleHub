@@ -22,7 +22,6 @@ fun ProfileScreen(navController : NavController , modifier : Modifier = Modifier
         ) {
             Spacer(modifier = Modifier.weight(1f))
             BottomAppBar(navController = navController)
-
         }
     }
 }

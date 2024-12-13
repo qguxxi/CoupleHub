@@ -13,7 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.synth.couplehub.ui.component.BottomAppBar
-import com.synth.couplehub.ui.viewmodel.SharedViewModel
 
 @Composable
 fun HomeScreen(navController : NavController,modifier : Modifier = Modifier) {
@@ -21,7 +20,9 @@ fun HomeScreen(navController : NavController,modifier : Modifier = Modifier) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize().padding(it)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
         ) {
             Spacer(modifier = Modifier.weight(1f))
             BottomAppBar(navController = navController)
