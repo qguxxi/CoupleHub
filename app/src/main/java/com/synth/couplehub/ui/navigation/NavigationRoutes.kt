@@ -1,21 +1,15 @@
 package com.synth.couplehub.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.synth.couplehub.data.local.UserSharePreference
 import com.synth.couplehub.ui.screen.DateScreen
 import com.synth.couplehub.ui.screen.HoneyScreen
 import com.synth.couplehub.ui.screen.IntroScreen
 import com.synth.couplehub.ui.screen.ProfileScreen
-import com.synth.couplehub.ui.screen.home.HomeScreen
 import com.synth.couplehub.ui.screen.SignInScreen
-import com.synth.couplehub.ui.viewmodel.SharedViewModel
-import com.synth.couplehub.ui.viewmodel.SignInViewModel
+import com.synth.couplehub.ui.screen.home.HomeScreen
 
 sealed class Screen(val route: String) {
     data object Home : Screen("home")
@@ -27,7 +21,7 @@ sealed class Screen(val route: String) {
     data object Date : Screen("date")
 }
 @Composable
-fun CoupleHubNavHost(sharedViewModel : SharedViewModel = viewModel()) {
+fun CoupleHubNavHost() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.SignIn.route) {
         composable(Screen.Home.route) {
@@ -37,10 +31,10 @@ fun CoupleHubNavHost(sharedViewModel : SharedViewModel = viewModel()) {
             SignInScreen(navController)
         }
         composable(Screen.Intro.route) {
-            IntroScreen(sharedViewModel,navController)
+            IntroScreen(navController = navController)
         }
         composable(Screen.Horny.route) {
-            HoneyScreen(sharedViewModel = sharedViewModel , navController = navController)
+            HoneyScreen(navController = navController)
         }
         composable(Screen.Profile.route) {
             ProfileScreen(navController)

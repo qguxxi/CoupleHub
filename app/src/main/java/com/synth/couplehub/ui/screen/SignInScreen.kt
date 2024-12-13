@@ -37,7 +37,6 @@ import com.synth.couplehub.ui.theme.AppTypography
 
 @Composable
 fun SignInScreen(navController : NavController) {
-
     Scaffold {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally ,
@@ -58,7 +57,6 @@ fun SignInScreen(navController : NavController) {
                     Log.d("GOOGLE SIGN IN" , message)
                 }
             )
-
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = stringResource(id = R.string.app_name) ,

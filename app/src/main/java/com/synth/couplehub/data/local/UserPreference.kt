@@ -1,25 +1,10 @@
 package com.synth.couplehub.data.local
 
 import android.content.Context
-import android.content.SharedPreferences
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
-class UserSharePreference(context : Context) {
-    val userSharePreference: SharedPreferences = context.getSharedPreferences("user_prefs",Context.MODE_PRIVATE)
+class UserPreference {
 
-    fun saveTokenUser(token: String) {
-        userSharePreference.edit().putString("token",token).apply()
-    }
-    fun getLoginInfo(): String? {
-        return userSharePreference.getString("token", null)
-    }
 
-    fun clearLoginInfo() {
-        userSharePreference.edit()
-            .remove("token")
-            .apply()
-    }
-
-    fun isLoggedIn(): Boolean {
-        return getLoginInfo() != null
-    }
 }
