@@ -10,13 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 
 @Composable
-fun ProfileScreen(navController : NavController , modifier : Modifier = Modifier) {
+fun HeartScreen(navController: NavController,modifier : Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxSize()
     ) {
-        Text("profile")
+        Text("heart")
     }
 }

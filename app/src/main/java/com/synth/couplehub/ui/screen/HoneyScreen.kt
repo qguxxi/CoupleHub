@@ -90,7 +90,7 @@ fun HoneyScreen(sharedViewModel : SharedViewModel = viewModel() , navController 
         ContinueButton(
             enable = hornyInput.isNotEmpty() ,
             onClick =  {
-                navController.navigate(Screen.Date.route)
+                navController.navigate(Screen.Main.route)
             }
         )
         Spacer(modifier = Modifier.weight(1f))
