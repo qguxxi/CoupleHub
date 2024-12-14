@@ -72,6 +72,8 @@ dependencies {
 //    ViewModel
     val lifecycle_version = "2.8.7"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+//  Data Store
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
 
 //    Navigation

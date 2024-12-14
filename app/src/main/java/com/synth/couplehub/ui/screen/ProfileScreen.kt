@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.synth.couplehub.ui.component.BottomAppBar
+import com.synth.couplehub.ui.component.NavigationAppBar
 
 @Composable
 fun ProfileScreen(navController : NavController , modifier : Modifier = Modifier) {
@@ -21,7 +21,7 @@ fun ProfileScreen(navController : NavController , modifier : Modifier = Modifier
             modifier = Modifier.fillMaxSize().padding(it)
         ) {
             Spacer(modifier = Modifier.weight(1f))
-            BottomAppBar(navController = navController)
+            NavigationAppBar(navController = navController)
         }
     }
 }

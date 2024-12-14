@@ -1,15 +1,13 @@
 package com.synth.couplehub.ui.component
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -17,92 +15,63 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.synth.couplehub.R
-import com.synth.couplehub.ui.navigation.Screen
 
+// Triển khai bottom navigation bar
+
+data class BottomNavigationItem(
+    val title : String ,
+    val selectedIcon : ImageVector ,
+    val unselectedIcon : ImageVector ,
+)
 @Composable
-fun BottomAppBar(navController: NavController, modifier: Modifier = Modifier) {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
-    val isHomeScreen = currentDestination?.route == Screen.Home.route
-    val isProfileScreen = currentDestination?.route == Screen.Profile.route
-    val isHeartScreen = currentDestination?.route == Screen.Heart.route
-    Row(
-        modifier = modifier
-            .background(color = Color(0xFFFAF3F4))
-            .height(75.dp)
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceAround
+fun NavigationAppBar(navController: NavController) {
+    val items = listOf(
+        BottomNavigationItem(
+            "home",
+            ImageVector.vectorResource(R.drawable.home_pink),
+            ImageVector.vectorResource(R.drawable.home)
+        ),
+        BottomNavigationItem(
+            "heart",
+            ImageVector.vectorResource(R.drawable.heart_pink),
+            ImageVector.vectorResource(R.drawable.heart)
+        ),
+        BottomNavigationItem(
+            "profile",
+            ImageVector.vectorResource(R.drawable.profile_pink),
+            ImageVector.vectorResource(R.drawable.profile)
+        )
+    )
+
+    var selectedIconIndex by rememberSaveable { mutableIntStateOf(0) }
+    NavigationBar(
+        tonalElevation = 7.dp,
     ) {
-        BottomAppBarIcon(
-            isSelected = isHomeScreen,
-            iconRes = R.drawable.home,
-            selectedIconRes = R.drawable.home_pink,
-            contentDescription = "Trang chủ",
-            onClick = {
-                if (!isHomeScreen) {
-                    navController.navigate(Screen.Home.route) {
-                        launchSingleTop = true
-                        popUpTo(Screen.Home.route) { inclusive = true }
-                    }
-                }
-            }
-        )
-        BottomAppBarIcon(
-            isSelected = isHeartScreen,
-            iconRes = R.drawable.heart,
-            selectedIconRes = R.drawable.heart_pink,
-            contentDescription = "Cài đặt",
-            onClick = {
-                if (!isHeartScreen) {
-                    navController.navigate(Screen.Heart.route) {
-                        launchSingleTop = true
-                        popUpTo(Screen.Heart.route) { inclusive = true }
-                    }
-                }
-            }
-        )
-        BottomAppBarIcon(
-            isSelected = isProfileScreen,
-            iconRes = R.drawable.profile,
-            selectedIconRes = R.drawable.profile_pink,
-            contentDescription = "Trang chủ",
-            onClick = {
-                if (!isProfileScreen) {
-                    navController.navigate(Screen.Profile.route) {
-                        launchSingleTop = true
-                        popUpTo(Screen.Home.route) { inclusive = true }
-                    }
-                }
-            }
-        )
+        items.forEachIndexed { index, item ->
+            NavigationBarItem(
+                label = null,
+                selected = selectedIconIndex == index,
+                onClick = {
+                    selectedIconIndex = index
+                },
+                alwaysShowLabel = false,
+                icon = {
+                    Icon(
+                        imageVector = if (selectedIconIndex == index) item.selectedIcon else item.unselectedIcon,
+                        contentDescription = item.title,
+                        tint = Color.Unspecified,
+                    )
+                },
+            )
+        }
     }
 }
-@Composable
-fun BottomAppBarIcon(
-    isSelected: Boolean,
-    iconRes: Int,
-    selectedIconRes: Int,
-    contentDescription: String,
-    onClick: () -> Unit
-) {
-    IconButton(
-        onClick = onClick,
-        enabled = !isSelected
-    ) {
-        Icon(
-            imageVector = ImageVector.vectorResource(id = if (isSelected) selectedIconRes else iconRes),
-            contentDescription = contentDescription,
-            tint = Color.Unspecified
-        )
-    }
-}
+
 
 @Preview
 @Composable
 fun Preview() {
-    BottomAppBar(navController = rememberNavController())
+    NavigationAppBar(navController = rememberNavController())
 }

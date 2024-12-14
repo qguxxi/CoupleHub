@@ -12,11 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.synth.couplehub.ui.component.BottomAppBar
+import com.synth.couplehub.ui.component.NavigationAppBar
 
 @Composable
 fun HomeScreen(navController : NavController,modifier : Modifier = Modifier) {
-    Scaffold {
+    Scaffold(
+        bottomBar = { NavigationAppBar(navController = navController) }
+
+    ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
@@ -24,8 +27,6 @@ fun HomeScreen(navController : NavController,modifier : Modifier = Modifier) {
                 .fillMaxSize()
                 .padding(it)
         ) {
-            Spacer(modifier = Modifier.weight(1f))
-            BottomAppBar(navController = navController)
         }
     }
 }
