@@ -40,19 +40,7 @@ import com.synth.couplehub.ui.navigation.Screen
 import com.synth.couplehub.ui.theme.AppTypography
 
 @Composable
-fun SignInScreen(navController : NavController) {
-    val context = LocalContext.current
-    val sharedPreferencesHelper = remember { SharedPreferencesHelper(context) }
-
-    LaunchedEffect(Unit) {
-        // Kiểm tra nếu ngày đã thiết lập
-        if (sharedPreferencesHelper.hasUserSetDate()) {
-            navController.navigate(Screen.Main.route) {
-                // Xóa SplashScreen khỏi back stack
-                popUpTo(0) { inclusive = true }
-            }
-        }
-    }
+fun SignInScreen(sharedPreferencesHelper: SharedPreferencesHelper,navController : NavController) {
 
     Scaffold {
         Column(
@@ -67,8 +55,13 @@ fun SignInScreen(navController : NavController) {
                 state = state ,
                 clientId = clientKeyApi ,
                 onTokenIdReceived = { tokenId ->
-                    navController.navigate(Screen.Intro.route)
+                    sharedPreferencesHelper.saveUserToken(tokenId)
                     Log.d("GOOGLE SIGN IN" , tokenId)
+                    navController.navigate(Screen.Intro.route) {
+                        popUpTo(Screen.SignIn.route) {
+                            inclusive = true
+                        }
+                    }
                 } ,
                 onDialogDismissed = { message ->
                     Log.d("GOOGLE SIGN IN" , message)
@@ -106,5 +99,5 @@ fun SignInScreen(navController : NavController) {
 @Preview(showBackground = true)
 @Composable
 private fun SignInScreenPreview() {
-    SignInScreen(navController = rememberNavController())
+    SignInScreen(sharedPreferencesHelper = SharedPreferencesHelper(LocalContext.current) , navController = rememberNavController())
 }

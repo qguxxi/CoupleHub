@@ -1,9 +1,11 @@
 package com.synth.couplehub.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.synth.couplehub.data.local.SharedPreferencesHelper
 import com.synth.couplehub.ui.screen.heart.HeartScreen
 import com.synth.couplehub.ui.screen.honey.HoneyScreen
 import com.synth.couplehub.ui.screen.intro.IntroScreen
@@ -25,13 +27,19 @@ sealed class Screen(val route: String) {
 }
 @Composable
 fun CoupleHubNavHost() {
+
+    val context = LocalContext.current
+    val sharedPreferencesHelper = SharedPreferencesHelper(context)
+
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screen.SignIn.route) {
+    NavHost(
+        navController = navController,
+        startDestination = if (sharedPreferencesHelper.hasValidToken()) Screen.Main.route else Screen.SignIn.route) {
         composable(Screen.Home.route) {
             HomeScreen(navController)
         }
         composable(Screen.SignIn.route) {
-            SignInScreen(navController)
+            SignInScreen(sharedPreferencesHelper = sharedPreferencesHelper,navController)
         }
         composable(Screen.Intro.route) {
             IntroScreen(navController = navController)

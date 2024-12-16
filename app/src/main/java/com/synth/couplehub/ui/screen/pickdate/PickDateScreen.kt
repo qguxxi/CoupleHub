@@ -70,9 +70,6 @@ fun PickDateScreen(navController: NavController) {
         ContinueButton(
             enable = isDateSelected,
             onClick = {
-                // Lưu thông tin ngày khi người dùng bấm Continue
-                sharedPreferencesHelper.saveSelectedDate(datePickerState.selectedDateMillis ?: 0)
-
                 // Điều hướng đến màn hình Home
                 navController.navigate(Screen.Main.route) {
                     popUpTo(0) { inclusive = true }

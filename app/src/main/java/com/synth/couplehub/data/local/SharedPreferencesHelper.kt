@@ -7,18 +7,22 @@ class SharedPreferencesHelper(context: Context) {
     private val sharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
 
     companion object {
-        const val KEY_DATE_SELECTED = "date_selected"
+        const val KEY_USER_TOKEN = "user_token"
     }
 
-    fun saveSelectedDate(date: Long) {
-        sharedPreferences.edit().putLong(KEY_DATE_SELECTED, date).apply()
+    fun saveUserToken(token: String) {
+        sharedPreferences.edit().putString(KEY_USER_TOKEN, token).apply()
     }
 
-    fun hasUserSetDate(): Boolean {
-        return sharedPreferences.contains(KEY_DATE_SELECTED)
+    fun getUserToken(): String? {
+        return sharedPreferences.getString(KEY_USER_TOKEN, null)
     }
 
-    fun getSelectedDate(): Long? {
-        return if (sharedPreferences.contains(KEY_DATE_SELECTED)) sharedPreferences.getLong(KEY_DATE_SELECTED, -1) else null
+    fun clearUserToken() {
+        sharedPreferences.edit().remove(KEY_USER_TOKEN).apply()
+    }
+
+    fun hasValidToken(): Boolean {
+        return sharedPreferences.contains(KEY_USER_TOKEN)
     }
 }
