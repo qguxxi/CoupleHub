@@ -1,4 +1,4 @@
-package com.synth.couplehub.ui.screen
+package com.synth.couplehub.ui.screen.pickdate
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,13 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.synth.couplehub.data.local.SharedPreferencesHelper
 import com.synth.couplehub.ui.component.ContinueButton
 import com.synth.couplehub.ui.component.DatePickerDocked
 import com.synth.couplehub.ui.navigation.Screen
@@ -33,17 +33,13 @@ import com.synth.couplehub.ui.theme.pinkGradient
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DateScreen(navController : NavController ,dateViewModel : DateViewModel = viewModel()) {
+fun PickDateScreen(navController: NavController) {
     var showDatePicker by remember { mutableStateOf(false) }
     val datePickerState = rememberDatePickerState()
     val isDateSelected = datePickerState.selectedDateMillis != null
-    val gradientBrush = remember {
-        Brush.linearGradient(
-            colors = pinkGradient,
-            start = Offset(0f, 0f),
-            end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY)
-        )
-    }
+
+    val context = LocalContext.current
+    val sharedPreferencesHelper = remember { SharedPreferencesHelper(context) }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -51,7 +47,11 @@ fun DateScreen(navController : NavController ,dateViewModel : DateViewModel = vi
         modifier = Modifier
             .fillMaxSize()
             .background(
-                brush = gradientBrush
+                brush = Brush.linearGradient(
+                    colors = pinkGradient,
+                    start = Offset(0f, 0f),
+                    end = Offset.Infinite
+                )
             )
     ) {
         Spacer(modifier = Modifier.weight(2f))
@@ -66,14 +66,19 @@ fun DateScreen(navController : NavController ,dateViewModel : DateViewModel = vi
             datePickerState = datePickerState
         )
         Spacer(modifier = Modifier.weight(8f))
-        ContinueButton(enable = isDateSelected , onClick = { navController.navigate(Screen.Home.route) })
+
+        ContinueButton(
+            enable = isDateSelected,
+            onClick = {
+                // Lưu thông tin ngày khi người dùng bấm Continue
+                sharedPreferencesHelper.saveSelectedDate(datePickerState.selectedDateMillis ?: 0)
+
+                // Điều hướng đến màn hình Home
+                navController.navigate(Screen.Main.route) {
+                    popUpTo(0) { inclusive = true }
+                }
+            }
+        )
         Spacer(modifier = Modifier.weight(2f))
     }
-}
-
-
-@Preview
-@Composable
-private fun DateScreenPreview() {
-    DateScreen(navController = rememberNavController())
 }

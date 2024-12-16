@@ -1,4 +1,4 @@
-package com.synth.couplehub.ui.screen
+package com.synth.couplehub.ui.screen.main
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
@@ -17,13 +17,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.synth.couplehub.R
+import com.synth.couplehub.data.local.BottomNavigationItem
+import com.synth.couplehub.ui.screen.profile.ProfileScreen
+import com.synth.couplehub.ui.screen.heart.HeartScreen
 import com.synth.couplehub.ui.screen.home.HomeScreen
 
-data class BottomNavigationItem(
-    val route: String,
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
-)
 
 @Composable
 fun MainScreen(navController : NavController,modifier : Modifier = Modifier) {

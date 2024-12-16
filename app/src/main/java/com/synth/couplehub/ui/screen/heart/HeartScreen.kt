@@ -1,4 +1,4 @@
-package com.synth.couplehub.ui.screen
+package com.synth.couplehub.ui.screen.heart
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

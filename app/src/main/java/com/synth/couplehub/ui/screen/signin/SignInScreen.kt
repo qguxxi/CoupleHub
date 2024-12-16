@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package com.synth.couplehub.ui.screen
+package com.synth.couplehub.ui.screen.signin
 
 import android.content.Intent
 import android.net.Uri
@@ -14,10 +14,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -30,6 +33,7 @@ import com.stevdzasan.onetap.OneTapSignInWithGoogle
 import com.stevdzasan.onetap.rememberOneTapSignInState
 import com.synth.couplehub.BuildConfig
 import com.synth.couplehub.R
+import com.synth.couplehub.data.local.SharedPreferencesHelper
 import com.synth.couplehub.ui.component.BottomBarSignIn
 import com.synth.couplehub.ui.component.GoogleSignInButton
 import com.synth.couplehub.ui.navigation.Screen
@@ -37,6 +41,19 @@ import com.synth.couplehub.ui.theme.AppTypography
 
 @Composable
 fun SignInScreen(navController : NavController) {
+    val context = LocalContext.current
+    val sharedPreferencesHelper = remember { SharedPreferencesHelper(context) }
+
+    LaunchedEffect(Unit) {
+        // Kiểm tra nếu ngày đã thiết lập
+        if (sharedPreferencesHelper.hasUserSetDate()) {
+            navController.navigate(Screen.Main.route) {
+                // Xóa SplashScreen khỏi back stack
+                popUpTo(0) { inclusive = true }
+            }
+        }
+    }
+
     Scaffold {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally ,

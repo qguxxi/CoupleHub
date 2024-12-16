@@ -1,4 +1,4 @@
-package com.synth.couplehub.ui.screen
+package com.synth.couplehub.ui.screen.intro
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -39,9 +39,10 @@ import com.synth.couplehub.ui.theme.AppTypography
 import com.synth.couplehub.ui.theme.pinkGradient
 import com.synth.couplehub.ui.viewmodel.SharedViewModel
 
+
 @Composable
-fun HoneyScreen(sharedViewModel : SharedViewModel = viewModel() , navController : NavController , modifier : Modifier = Modifier) {
-    var hornyInput by remember { mutableStateOf("") }
+fun IntroScreen(sharedViewModel : SharedViewModel = viewModel(),navController : NavController, modifier : Modifier = Modifier) {
+    var nameInput by remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -57,48 +58,52 @@ fun HoneyScreen(sharedViewModel : SharedViewModel = viewModel() , navController 
             )
     ){
         Spacer(modifier = Modifier.weight(1f))
-        Text(text = stringResource(id = R.string.input_her_name) , style = AppTypography.bodyLarge.copy(fontSize = 28.sp, fontWeight = FontWeight.Bold))
+        Text(text = stringResource(id = R.string.input_name), style = AppTypography.bodyLarge.copy(fontSize = 32.sp, fontWeight = FontWeight.Bold))
         Spacer(modifier = Modifier.height(16.dp))
         Box(
+            contentAlignment = Alignment.Center,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
-            if (hornyInput.isEmpty()) {
+            if (nameInput.isEmpty()) {
                 Text(
-                    text = stringResource(id = R.string.her_input) ,
+                    text = stringResource(id = R.string.input),
                     fontSize = 24.sp,
-                    color = Color.Gray // Chữ mờ
+                    color = Color.Gray, // Chữ mờ
                 )
             }
             BasicTextField(
-                value = hornyInput ,
+                value = nameInput ,
                 keyboardActions = KeyboardActions(
                     onDone = {
-                        sharedViewModel.setHornyName(name = hornyInput)
+                        sharedViewModel.setName(nameInput)
                         keyboardController?.hide()
                     }
-                ) ,
-                textStyle = TextStyle(fontSize = 24.sp, textAlign = TextAlign.Center) ,
+                ),
+                textStyle = TextStyle(fontSize = 24.sp, textAlign = TextAlign.Center),
                 maxLines = 1 ,
                 singleLine = true ,
                 onValueChange = { newInput ->
-                    hornyInput = newInput
+                    nameInput = newInput
                 },
                 modifier = Modifier.fillMaxWidth(0.5f)
+
             )
         }
         Spacer(modifier = Modifier.weight(6f))
         ContinueButton(
-            enable = hornyInput.isNotEmpty() ,
+            enable = nameInput.isNotEmpty() ,
             onClick =  {
-                navController.navigate(Screen.Main.route)
+                navController.navigate(Screen.Horny.route)
             }
         )
         Spacer(modifier = Modifier.weight(1f))
     }
 }
 
+
+
 @Preview
 @Composable
-private fun HoneyScreenPreview() {
-    HoneyScreen(navController = rememberNavController())
+private fun IntroScreenPreview() {
+    IntroScreen(sharedViewModel = SharedViewModel() , navController = rememberNavController())
 }
