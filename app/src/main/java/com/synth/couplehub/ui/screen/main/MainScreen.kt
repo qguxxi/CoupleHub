@@ -17,10 +17,15 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.synth.couplehub.R
-import com.synth.couplehub.data.local.BottomNavigationItem
-import com.synth.couplehub.ui.screen.profile.ProfileScreen
 import com.synth.couplehub.ui.screen.heart.HeartScreen
 import com.synth.couplehub.ui.screen.home.HomeScreen
+import com.synth.couplehub.ui.screen.profile.ProfileScreen
+
+data class BottomNavigationItem(
+    val route: String ,
+    val selectedIcon: ImageVector ,
+    val unselectedIcon: ImageVector ,
+)
 
 
 @Composable

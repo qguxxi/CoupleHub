@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -34,14 +32,14 @@ import com.stevdzasan.onetap.rememberOneTapSignInState
 import com.synth.couplehub.BuildConfig
 import com.synth.couplehub.R
 import com.synth.couplehub.data.local.SharedPreferencesHelper
-import com.synth.couplehub.ui.component.BottomBarSignIn
 import com.synth.couplehub.ui.component.GoogleSignInButton
 import com.synth.couplehub.ui.navigation.Screen
 import com.synth.couplehub.ui.theme.AppTypography
 
 @Composable
 fun SignInScreen(sharedPreferencesHelper: SharedPreferencesHelper,navController : NavController) {
-
+    val clientKeyApi = BuildConfig.CLIENT_KEY_API
+    val state = rememberOneTapSignInState()
     Scaffold {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally ,
@@ -49,15 +47,13 @@ fun SignInScreen(sharedPreferencesHelper: SharedPreferencesHelper,navController 
                 .padding(it)
                 .fillMaxSize()
         ) {
-            val clientKeyApi = BuildConfig.CLIENT_KEY_API
-            val state = rememberOneTapSignInState()
             OneTapSignInWithGoogle(
                 state = state ,
                 clientId = clientKeyApi ,
                 onTokenIdReceived = { tokenId ->
                     sharedPreferencesHelper.saveUserToken(tokenId)
                     Log.d("GOOGLE SIGN IN" , tokenId)
-                    navController.navigate(Screen.Intro.route) {
+                    navController.navigate(Screen.Form.route) {
                         popUpTo(Screen.SignIn.route) {
                             inclusive = true
                         }

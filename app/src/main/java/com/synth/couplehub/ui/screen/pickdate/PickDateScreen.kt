@@ -22,24 +22,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.synth.couplehub.data.local.SharedPreferencesHelper
 import com.synth.couplehub.ui.component.ContinueButton
-import com.synth.couplehub.ui.component.DatePickerDocked
 import com.synth.couplehub.ui.navigation.Screen
 import com.synth.couplehub.ui.theme.AppTypography
 import com.synth.couplehub.ui.theme.pinkGradient
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PickDateScreen(navController: NavController) {
-    var showDatePicker by remember { mutableStateOf(false) }
-    val datePickerState = rememberDatePickerState()
-    val isDateSelected = datePickerState.selectedDateMillis != null
-
-    val context = LocalContext.current
-    val sharedPreferencesHelper = remember { SharedPreferencesHelper(context) }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -60,22 +51,9 @@ fun PickDateScreen(navController: NavController) {
             style = AppTypography.bodyLarge.copy(fontSize = 32.sp, fontWeight = FontWeight.Bold)
         )
         Spacer(modifier = Modifier.height(32.dp))
-        DatePickerDocked(
-            showDatePicker = showDatePicker,
-            onShowDatePickerChange = { showDatePicker = it },
-            datePickerState = datePickerState
-        )
         Spacer(modifier = Modifier.weight(8f))
 
-        ContinueButton(
-            enable = isDateSelected,
-            onClick = {
-                // Điều hướng đến màn hình Home
-                navController.navigate(Screen.Main.route) {
-                    popUpTo(0) { inclusive = true }
-                }
-            }
-        )
+
         Spacer(modifier = Modifier.weight(2f))
     }
 }
