@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package com.synth.couplehub.ui.screen
+package com.synth.couplehub.ui.screen.signin
 
 import android.content.Intent
 import android.net.Uri
@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -30,13 +31,15 @@ import com.stevdzasan.onetap.OneTapSignInWithGoogle
 import com.stevdzasan.onetap.rememberOneTapSignInState
 import com.synth.couplehub.BuildConfig
 import com.synth.couplehub.R
-import com.synth.couplehub.ui.component.BottomBarSignIn
+import com.synth.couplehub.data.local.SharedPreferencesHelper
 import com.synth.couplehub.ui.component.GoogleSignInButton
 import com.synth.couplehub.ui.navigation.Screen
 import com.synth.couplehub.ui.theme.AppTypography
 
 @Composable
-fun SignInScreen(navController : NavController) {
+fun SignInScreen(sharedPreferencesHelper: SharedPreferencesHelper,navController : NavController) {
+    val clientKeyApi = BuildConfig.CLIENT_KEY_API
+    val state = rememberOneTapSignInState()
     Scaffold {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally ,
@@ -44,14 +47,17 @@ fun SignInScreen(navController : NavController) {
                 .padding(it)
                 .fillMaxSize()
         ) {
-            val clientKeyApi = BuildConfig.CLIENT_KEY_API
-            val state = rememberOneTapSignInState()
             OneTapSignInWithGoogle(
                 state = state ,
                 clientId = clientKeyApi ,
                 onTokenIdReceived = { tokenId ->
-                    navController.navigate(Screen.Intro.route)
+                    sharedPreferencesHelper.saveUserToken(tokenId)
                     Log.d("GOOGLE SIGN IN" , tokenId)
+                    navController.navigate(Screen.Form.route) {
+                        popUpTo(Screen.SignIn.route) {
+                            inclusive = true
+                        }
+                    }
                 } ,
                 onDialogDismissed = { message ->
                     Log.d("GOOGLE SIGN IN" , message)
@@ -89,5 +95,5 @@ fun SignInScreen(navController : NavController) {
 @Preview(showBackground = true)
 @Composable
 private fun SignInScreenPreview() {
-    SignInScreen(navController = rememberNavController())
+    SignInScreen(sharedPreferencesHelper = SharedPreferencesHelper(LocalContext.current) , navController = rememberNavController())
 }
