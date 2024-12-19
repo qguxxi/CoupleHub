@@ -1,7 +1,7 @@
 package com.synth.couplehub.ui.theme
 import androidx.compose.ui.graphics.Color
 
-val primaryLight = Color(0xFF864B70)
+val primaryLight = Color(0xFFF65DC3)
 val onPrimaryLight = Color(0xFFFFFFFF)
 val primaryContainerLight = Color(0xFFFFD8EC)
 val onPrimaryContainerLight = Color(0xFF37072A)
@@ -38,7 +38,7 @@ val surfaceContainerHighLight = Color(0xFFF3E4E9)
 val surfaceContainerHighestLight = Color(0xFFEEDFE3)
 
 
-val primaryDark = Color(0xFFF9B1DB)
+val primaryDark = Color(0xFFF65DC3)
 val onPrimaryDark = Color(0xFF501E40)
 val primaryContainerDark = Color(0xFF6A3457)
 val onPrimaryContainerDark = Color(0xFFFFD8EC)

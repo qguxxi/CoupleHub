@@ -2,7 +2,7 @@ package com.synth.couplehub.ui.screen.signin
 
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.synth.couplehub.data.local.SharedPreferencesHelper
+import com.synth.couplehub.domain.SharedPreferencesHelper
 import com.synth.couplehub.ui.navigation.Screen
 
 

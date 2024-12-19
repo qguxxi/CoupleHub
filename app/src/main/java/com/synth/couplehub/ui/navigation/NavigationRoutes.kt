@@ -5,7 +5,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.synth.couplehub.data.local.SharedPreferencesHelper
+import com.synth.couplehub.domain.SharedPreferencesHelper
 import com.synth.couplehub.ui.screen.heart.HeartScreen
 import com.synth.couplehub.ui.screen.home.HomeScreen
 import com.synth.couplehub.ui.screen.main.MainScreen
