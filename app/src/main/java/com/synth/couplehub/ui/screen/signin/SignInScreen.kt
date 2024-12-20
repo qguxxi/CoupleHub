@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package com.synth.couplehub.ui.screen
+package com.synth.couplehub.ui.screen.signin
 
 import android.content.Intent
 import android.net.Uri
@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -24,20 +26,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.stevdzasan.onetap.OneTapSignInWithGoogle
 import com.stevdzasan.onetap.rememberOneTapSignInState
 import com.synth.couplehub.BuildConfig
 import com.synth.couplehub.R
-import com.synth.couplehub.ui.component.BottomBarSignIn
-import com.synth.couplehub.ui.component.GoogleSignInButton
-import com.synth.couplehub.ui.navigation.Screen
 import com.synth.couplehub.ui.theme.AppTypography
 
 @Composable
-fun SignInScreen(navController : NavController) {
-
+fun SignInScreen(viewmodel: SignInViewModel = viewModel(),navController : NavController) {
+    val clientKeyApi = BuildConfig.CLIENT_KEY_API
+    val state = rememberOneTapSignInState()
     Scaffold {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally ,
@@ -45,20 +45,16 @@ fun SignInScreen(navController : NavController) {
                 .padding(it)
                 .fillMaxSize()
         ) {
-            val clientKeyApi = BuildConfig.CLIENT_KEY_API
-            val state = rememberOneTapSignInState()
             OneTapSignInWithGoogle(
                 state = state ,
                 clientId = clientKeyApi ,
                 onTokenIdReceived = { tokenId ->
-                    navController.navigate(Screen.Intro.route)
-                    Log.d("GOOGLE SIGN IN" , tokenId)
+                    viewmodel.onTokenReceived(tokenId, navController)
                 } ,
                 onDialogDismissed = { message ->
                     Log.d("GOOGLE SIGN IN" , message)
                 }
             )
-
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = stringResource(id = R.string.app_name) ,
@@ -75,7 +71,7 @@ fun SignInScreen(navController : NavController) {
             Spacer(modifier = Modifier.weight(2f))
             Image(painter = painterResource(id = R.drawable.logo_large) , contentDescription = null)
             Spacer(modifier = Modifier.height(240.dp))
-            GoogleSignInButton(onClick = { state.open() } , isLoading = false)
+            GoogleSignInButton(onClick = { state.open() } , isLoading = state.opened)
             Spacer(modifier = Modifier.weight(3f))
             BottomBarSignIn(privacyOnClick = {
                 val intent = Intent(Intent.ACTION_VIEW , Uri.parse("https://sites.google.com/view/synthinc/trang-ch%E1%BB%A7"))
@@ -83,7 +79,8 @@ fun SignInScreen(navController : NavController) {
             } , termServiceOnClick = {
                 val intent = Intent(Intent.ACTION_VIEW , Uri.parse("https://sites.google.com/view/synth-inc/trang-ch%E1%BB%A7"))
                 startActivity(navController.context , intent , null)
-            })
+            }
+            )
         }
     }
 }
@@ -91,5 +88,4 @@ fun SignInScreen(navController : NavController) {
 @Preview(showBackground = true)
 @Composable
 private fun SignInScreenPreview() {
-    SignInScreen(navController = rememberNavController())
 }

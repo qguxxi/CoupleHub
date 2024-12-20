@@ -3,6 +3,8 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -56,11 +58,21 @@ android {
     buildFeatures {
         buildConfig = true
     }
+
+}
+kapt {
+    correctErrorTypes = true
 }
 
 dependencies {
 // Splash Screen
     implementation ("androidx.appcompat:appcompat:1.6.1")
+//  Dependency injection
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+
+
+    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
 
 
     implementation("com.github.stevdza-san:OneTapCompose:1.0.14")
@@ -72,6 +84,8 @@ dependencies {
 //    ViewModel
     val lifecycle_version = "2.8.7"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+//  Data Store
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
 
 //    Navigation
