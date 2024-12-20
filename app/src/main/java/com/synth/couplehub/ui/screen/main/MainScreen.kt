@@ -1,7 +1,14 @@
 package com.synth.couplehub.ui.screen.main
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -11,6 +18,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
@@ -54,6 +62,11 @@ fun MainScreen(navController : NavController,modifier : Modifier = Modifier) {
             )
             NavigationBar(
                 tonalElevation = 7.dp,
+                modifier = Modifier
+                    .navigationBarsPadding().padding(bottom = 8.dp)
+                    .clip(shape = RoundedCornerShape(30.dp))
+                    .background(color = MaterialTheme.colorScheme.surfaceContainer , shape = RoundedCornerShape(30.dp))
+                    .height(60.dp)
             ) {
                 items.forEachIndexed { index,item ->
                     val isSelected = selectedIndex == index
@@ -68,7 +81,7 @@ fun MainScreen(navController : NavController,modifier : Modifier = Modifier) {
                             Icon(
                                 imageVector = if (isSelected) item.selectedIcon else item.unselectedIcon,
                                 contentDescription = item.route,
-                                tint = Color.Unspecified,
+                                tint = MaterialTheme.colorScheme.primary
                             )
                         },
                     )

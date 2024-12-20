@@ -1,4 +1,4 @@
-package com.synth.couplehub.ui.component
+package com.synth.couplehub.ui.screen.signin
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

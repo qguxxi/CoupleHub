@@ -1,4 +1,4 @@
-package com.synth.couplehub.data.local
+package com.synth.couplehub.domain
 
 import android.content.Context
 
@@ -11,11 +11,11 @@ class SharedPreferencesHelper(context: Context) {
     }
 
     fun saveUserToken(token: String) {
-        sharedPreferences.edit().putString(KEY_USER_TOKEN, token).apply()
+        sharedPreferences.edit().putString(KEY_USER_TOKEN , token).apply()
     }
 
     fun getUserToken(): String? {
-        return sharedPreferences.getString(KEY_USER_TOKEN, null)
+        return sharedPreferences.getString(KEY_USER_TOKEN , null)
     }
 
     fun clearUserToken() {
