@@ -8,7 +8,6 @@ A modern Android application built with Kotlin and Jetpack Compose, demonstratin
 
 - Modern UI with Jetpack Compose
 - MVVM Architecture
-- Dependency Injection
 - Local and Remote Data Management
 - Responsive Design
 
@@ -21,9 +20,6 @@ A modern Android application built with Kotlin and Jetpack Compose, demonstratin
 
 ### Key Libraries
 - Jetpack Compose
-- Hilt (Dependency Injection)
-- Retrofit (Network Calls)
-- Room (Local Database)
 - Coroutines & Flow
 - Navigation Component
 - ViewModel
