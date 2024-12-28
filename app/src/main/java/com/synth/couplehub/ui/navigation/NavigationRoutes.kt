@@ -2,24 +2,24 @@ package com.synth.couplehub.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.synth.couplehub.domain.SharedPreferencesHelper
+import com.synth.couplehub.CoupleHubViewModelFactory
 import com.synth.couplehub.ui.screen.heart.HeartScreen
 import com.synth.couplehub.ui.screen.home.HomeScreen
 import com.synth.couplehub.ui.screen.main.MainScreen
-import com.synth.couplehub.ui.screen.pickdate.PickDateScreen
 import com.synth.couplehub.ui.screen.profile.ProfileScreen
 import com.synth.couplehub.ui.screen.signin.SignInScreen
 import com.synth.couplehub.ui.screen.signin.SignInViewModel
+import com.synth.couplehub.usecase.SharedPreferencesHelper
 
 sealed class Screen(val route: String) {
     data object Home : Screen("home")
     data object SignIn : Screen("sign_In")
     data object Profile : Screen("profile")
     data object Heart : Screen("heart")
-    data object Date : Screen("date")
     data object Main : Screen("main")
 }
 @Composable
@@ -33,7 +33,7 @@ fun CoupleHubNavHost() {
         navController = navController,
         startDestination = if (sharedPreferencesHelper.hasValidToken()) Screen.Main.route else Screen.SignIn.route) {
         composable(Screen.Home.route) {
-            HomeScreen(navController)
+            HomeScreen(homeViewModel = viewModel(factory = CoupleHubViewModelFactory(context)),navController)
         }
         composable(Screen.SignIn.route) {
             SignInScreen(viewmodel = SignInViewModel(SharedPreferencesHelper(context)),navController)
@@ -43,9 +43,6 @@ fun CoupleHubNavHost() {
         }
         composable(Screen.Heart.route) {
             HeartScreen(navController)
-        }
-        composable(Screen.Date.route) {
-            PickDateScreen(navController = navController)
         }
         composable(Screen.Main.route) {
             MainScreen(navController = navController)

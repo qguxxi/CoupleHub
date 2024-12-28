@@ -1,7 +1,9 @@
 package com.synth.couplehub.ui.screen.main
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -19,7 +21,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
@@ -27,6 +28,7 @@ import androidx.navigation.NavController
 import com.synth.couplehub.R
 import com.synth.couplehub.ui.screen.heart.HeartScreen
 import com.synth.couplehub.ui.screen.home.HomeScreen
+import com.synth.couplehub.ui.screen.home.HomeViewModel
 import com.synth.couplehub.ui.screen.profile.ProfileScreen
 
 data class BottomNavigationItem(
@@ -60,31 +62,39 @@ fun MainScreen(navController : NavController,modifier : Modifier = Modifier) {
                     ImageVector.vectorResource(R.drawable.profile)
                 )
             )
-            NavigationBar(
-                tonalElevation = 7.dp,
-                modifier = Modifier
-                    .navigationBarsPadding().padding(bottom = 8.dp)
-                    .clip(shape = RoundedCornerShape(30.dp))
-                    .background(color = MaterialTheme.colorScheme.surfaceContainer , shape = RoundedCornerShape(30.dp))
-                    .height(60.dp)
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                items.forEachIndexed { index,item ->
-                    val isSelected = selectedIndex == index
-                    NavigationBarItem(
-                        label = null,
-                        selected = isSelected,
-                        onClick = {
-                            selectedIndex = index
-                        },
-                        alwaysShowLabel = false,
-                        icon = {
-                            Icon(
-                                imageVector = if (isSelected) item.selectedIcon else item.unselectedIcon,
-                                contentDescription = item.route,
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                        },
-                    )
+                NavigationBar(
+                    tonalElevation = 7.dp ,
+                    modifier = Modifier
+                        .navigationBarsPadding()
+                        .padding(bottom = 8.dp)
+                        .clip(shape = RoundedCornerShape(30.dp))
+                        .background(color = MaterialTheme.colorScheme.surfaceContainer , shape = RoundedCornerShape(30.dp))
+                        .height(64.dp)
+                        .width(300.dp)
+                ) {
+                    items.forEachIndexed { index , item ->
+                        val isSelected = selectedIndex == index
+                        NavigationBarItem(
+                            label = null ,
+                            enabled = selectedIndex != index,
+                            selected = isSelected ,
+                            onClick = {
+                                selectedIndex = index
+                            } ,
+                            alwaysShowLabel = false ,
+                            icon = {
+                                Icon(
+                                    imageVector = if (isSelected) item.selectedIcon else item.unselectedIcon ,
+                                    contentDescription = item.route ,
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                            } ,
+                        )
+                    }
                 }
             }
         }
