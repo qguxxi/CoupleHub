@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.synth.couplehub"
-        minSdk = 34
+        minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -29,12 +29,13 @@ android {
 
     }
 
-    buildTypes {
+    buildTypes(action =  {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt") , "proguard-rules.pro")
+            }
         }
-    }
+    )
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -56,28 +57,34 @@ android {
     buildFeatures {
         buildConfig = true
     }
+
 }
+
 
 dependencies {
 // Splash Screen
-    implementation ("androidx.appcompat:appcompat:1.6.1")
-
-
-    implementation("com.github.stevdza-san:OneTapCompose:1.0.14")
+    implementation (libs.androidx.appcompat)
 
 //    Data Store
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation (libs.androidx.datastore.preferences.v100)
+
+    implementation("io.coil-kt.coil3:coil-compose:3.0.4")
+
+    implementation(libs.onetapcompose)
+
     implementation(libs.material)
     implementation(libs.firebase.vertexai)
 //    ViewModel
     val lifecycle_version = "2.8.7"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+//  Data Store
+    implementation(libs.datastore.preferences)
 
 
 //    Navigation
-    implementation("androidx.navigation:navigation-compose:2.8.4")
+    implementation(libs.androidx.navigation.compose)
 
-    implementation("androidx.core:core-splashscreen:1.0.0-beta02")
+    implementation("androidx.core:core-splashscreen:1.0.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

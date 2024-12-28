@@ -1,4 +1,4 @@
-package com.synth.couplehub.ui.component
+package com.synth.couplehub.ui.screen.signin
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -27,7 +27,7 @@ import com.synth.couplehub.ui.theme.AppTypography
 import com.synth.couplehub.ui.theme.largeRoundedCornerShape
 
 @Composable
-fun GoogleSignInButton(onClick : () -> Unit ,isLoading:Boolean,modifier : Modifier = Modifier) {
+fun GoogleButton(onClick : () -> Unit , isLoading:Boolean , modifier : Modifier = Modifier) {
     val scheme = MaterialTheme.colorScheme
     Button(
         onClick = onClick,
@@ -69,5 +69,5 @@ fun GoogleSignInButton(onClick : () -> Unit ,isLoading:Boolean,modifier : Modifi
 @Preview(showBackground = true)
 @Composable
 private fun GoogleButtonPreview() {
-    GoogleSignInButton({}, false)
+    GoogleButton({}, false)
 }

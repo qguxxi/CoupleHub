@@ -1,4 +1,4 @@
-package com.synth.couplehub.ui.component
+package com.synth.couplehub.ui.screen.signin
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,7 +24,7 @@ import com.synth.couplehub.R
 import com.synth.couplehub.ui.theme.AppTypography
 
 @Composable
-fun BottomBarSignIn(privacyOnClick : () -> Unit,termServiceOnClick: () -> Unit,modifier : Modifier = Modifier) {
+fun FootSignIn(privacyOnClick : () -> Unit , termServiceOnClick: () -> Unit , modifier : Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -80,5 +80,5 @@ fun BottomBarSignIn(privacyOnClick : () -> Unit,termServiceOnClick: () -> Unit,m
 @Preview(showBackground = true)
 @Composable
 private fun BottomBarSignInPreview() {
-    BottomBarSignIn(privacyOnClick = { /*TODO*/ }, termServiceOnClick = { /*TODO*/ })
+    FootSignIn(privacyOnClick = { /*TODO*/ }, termServiceOnClick = { /*TODO*/ })
 }
