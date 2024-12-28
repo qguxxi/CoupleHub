@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -28,10 +26,12 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.transition.Scene
 import com.stevdzasan.onetap.OneTapSignInWithGoogle
 import com.stevdzasan.onetap.rememberOneTapSignInState
 import com.synth.couplehub.BuildConfig
 import com.synth.couplehub.R
+import com.synth.couplehub.ui.navigation.Screen
 import com.synth.couplehub.ui.theme.AppTypography
 
 @Composable
@@ -49,7 +49,12 @@ fun SignInScreen(viewmodel: SignInViewModel = viewModel(),navController : NavCon
                 state = state ,
                 clientId = clientKeyApi ,
                 onTokenIdReceived = { tokenId ->
-                    viewmodel.onTokenReceived(tokenId, navController)
+                    viewmodel.onTokenReceived(tokenId)
+                    navController.navigate(Screen.Main.route) {
+                        popUpTo(Screen.SignIn.route) {
+                            inclusive = true
+                        }
+                    }
                 } ,
                 onDialogDismissed = { message ->
                     Log.d("GOOGLE SIGN IN" , message)
@@ -71,9 +76,9 @@ fun SignInScreen(viewmodel: SignInViewModel = viewModel(),navController : NavCon
             Spacer(modifier = Modifier.weight(2f))
             Image(painter = painterResource(id = R.drawable.logo_large) , contentDescription = null)
             Spacer(modifier = Modifier.height(240.dp))
-            GoogleSignInButton(onClick = { state.open() } , isLoading = state.opened)
+            GoogleButton(onClick = { state.open() } , isLoading = state.opened)
             Spacer(modifier = Modifier.weight(3f))
-            BottomBarSignIn(privacyOnClick = {
+            FootSignIn(privacyOnClick = {
                 val intent = Intent(Intent.ACTION_VIEW , Uri.parse("https://sites.google.com/view/synthinc/trang-ch%E1%BB%A7"))
                 startActivity(navController.context , intent , null)
             } , termServiceOnClick = {
