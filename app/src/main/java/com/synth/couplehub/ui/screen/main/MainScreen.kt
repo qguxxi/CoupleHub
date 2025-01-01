@@ -28,7 +28,6 @@ import androidx.navigation.NavController
 import com.synth.couplehub.R
 import com.synth.couplehub.ui.screen.heart.HeartScreen
 import com.synth.couplehub.ui.screen.home.HomeScreen
-import com.synth.couplehub.ui.screen.home.HomeViewModel
 import com.synth.couplehub.ui.screen.profile.ProfileScreen
 
 data class BottomNavigationItem(
@@ -106,7 +105,7 @@ fun MainScreen(navController : NavController,modifier : Modifier = Modifier) {
 @Composable
 fun ContentScreen(navController : NavController,index: Int,modifier : Modifier = Modifier) {
     when(index) {
-        0 -> HomeScreen(navController = navController)
+        0 -> HomeScreen()
         1 -> HeartScreen(navController = navController)
         2 -> ProfileScreen(navController = navController)
     }
